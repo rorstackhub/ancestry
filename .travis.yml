@@ -1,0 +1,27 @@
+sudo: false
+language: ruby
+cache: bundler
+
+rvm:
+  - 2.5
+  - 2.6
+
+env:
+  - DB=pg
+  - DB=mysql2
+  - DB=sqlite3
+
+gemfile:
+  - gemfiles/gemfile_42.gemfile
+  - gemfiles/gemfile_50.gemfile
+  - gemfiles/gemfile_51.gemfile
+  - gemfiles/gemfile_52.gemfile
+  - gemfiles/gemfile_60.gemfile
+
+services:
+  - mysql
+  - postgresql
+
+before_script:
+  - mysql -e 'create database ancestry_test;' || true
+  - psql -c 'create database ancestry_test;' -U postgres || true
